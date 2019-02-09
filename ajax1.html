@@ -8,33 +8,49 @@
 </head>
 <body>
     <button id="button"> Get Text File</button>
+    <br><br>
+    <div id="text"></div>
     
     <script>
-//create event listener
+    //create event listener
     document.getElementById('button').addEventListener('click', loadText);
+    
     function loadText() {
-// create XHR object
+    // create XHR object
     var xhr = new XMLHttpRequest ();
-        //OPEN - type, url/file, async
-        console.log(xhr);
-        xhr.open('GET', 'sample.txt', true);
+    //OPEN - type, url/file, async
+    xhr.open('GET', 'sample2.txt', true);
         
+    console.log('READYSTATE: ', xhr.readyState);
+        
+    //optional - used for loaders
+    xhr.onprogress = function(){
         console.log('READYSTATE: ', xhr.readyState);
+    }
         
-        // xhr.onload = function(){
-        //     if(this.status == 200){
-        //         console.log(this.responseText);
-        //     }    
+    xhr.onload = function(){
+        console.log('READYSTATE: ', xhr.readyState);
+        if(this.status == 200){
+        //console.log(this.responseText);
+        document.getElementById('text').innerHTML = this.responseText;
+        }   else if(this.status = 404){
+            document.getElementById('text').innerHTML = 'Not Found';
+        }
+    };
+        
+    xhr.onerror = function(){
+        console.log('Request Error...');
+    };
+        
+        // xhr.onreadystatechange= function(){
+        //     console.log('READYSTATE: ', xhr.readyState);
+        //     if(this.readyState == 4 && this.status == 200){
+        //         //console.log(this.responseText);
         // };
         
-        xhr.onreadystatechange= function(){
-            console.log('READYSTATE: ', xhr.readyState);
-            if(this.readyState == 4 && this.status == 200){
-                //console.log(this.responseText);
-        };
         //sends request
-        xhr.send();
-    };
+    xhr.send();
+    }
     
     //readystate Values
     //0: request not initialized
