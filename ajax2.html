@@ -7,6 +7,28 @@
     <title>Ajax 2 - local JSON</title>
 </head>
 <body>
+    <button id="button1">Get user</button>
+    <button id="button2">Get users</button>
+    <br><br>
+    <h1>User</h1>
+    <div id="user"></div>
+    <h1>Users</h1>
+    <div id="users"></div>
     
+<script>
+    document.getElementById('button1').addEventListener('click', loadUser);
+    function loadUser(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'user.json', true);
+        
+        xhr.onload = function(){
+            if(this.status == 200){
+                console.log(this.responseText);
+            }
+        };
+        
+        xhr.send();
+    }
+</script>    
 </body>
 </html>
